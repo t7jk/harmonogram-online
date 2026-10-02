@@ -1,0 +1,88 @@
+{
+ "rok": "2026/2027",
+ "start": "2026-10-01",
+ "n": 28,
+ "koniec": "2027-06-25",
+ "plik": "harmonogram_2026_2027",
+ "weekend": true,
+ "dni": [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6
+ ],
+ "stale": [
+  {
+   "od": "2026-11-01",
+   "do": "2026-11-01",
+   "opis": "Wszystkich Świętych"
+  },
+  {
+   "od": "2026-11-11",
+   "do": "2026-11-11",
+   "opis": "Narodowe Święto Niepodległości"
+  },
+  {
+   "od": "2026-12-22",
+   "do": "2027-01-06",
+   "opis": "Przerwa świąteczna: Boże Narodzenie, Nowy Rok i Trzech Króli"
+  },
+  {
+   "od": "2027-04-30",
+   "do": "2027-05-04",
+   "opis": "Święto Pracy, Święto Flagi i Święto Konstytucji 3 Maja"
+  }
+ ],
+ "ruchome": [
+  {
+   "od": "2027-03-26",
+   "do": "2027-03-30",
+   "opis": "Wielkanoc (wiosenna przerwa świąteczna)"
+  },
+  {
+   "od": "2027-05-27",
+   "do": "2027-05-29",
+   "opis": "Boże Ciało (długi weekend)"
+  }
+ ],
+ "ferie": [
+  {
+   "od": "2027-01-30",
+   "do": "2027-02-14",
+   "opis": "Ferie zimowe (mazowieckie)"
+  }
+ ],
+ "wyjatki": [
+  {
+   "data": "2026-10-30",
+   "opis": "Dzień Zaduszny"
+  }
+ ],
+ "dodatki": [],
+ "indWyj": [
+  {
+   "data": "2026-10-14",
+   "osoba": "Weronika"
+  },
+  {
+   "data": "2026-11-16",
+   "osoba": "Weronika"
+  },
+  {
+   "data": "2027-04-26",
+   "osoba": "Weronika"
+  }
+ ],
+ "indDod": [
+  {
+   "data": "2026-11-02",
+   "osoba": "Weronika"
+  },
+  {
+   "data": "2027-01-04",
+   "osoba": "Weronika"
+  }
+ ]
+}
