@@ -24,7 +24,7 @@
         inp.type = COLS[c][1]; inp.value = row[c] || '';
         inp.addEventListener('input', () => { row[c] = inp.value;
           if (c === 'od' && cols.includes('do') && (!row.do || row.do === prevOd)) { row.do = inp.value; $$('input', tr)[cols.indexOf('do')].value = inp.value; }
-          prevOd = row.od; if (c !== 'opis' && c !== 'osoba') delete row.auto; changed(); });
+          prevOd = row.od; if (c !== 'opis' && c !== 'osoba') delete row.auto; changed(key + i + c); });
         td.appendChild(inp); tr.appendChild(td);
       });
       const td = document.createElement('td');
@@ -119,7 +119,29 @@
       $('#rokLabel').textContent = cfg.rok || '';
     } catch (e) { showErr('Błąd połączenia z serwerem'); }
   }
-  function changed() { readFormSafe(); clearTimeout(timer); timer = setTimeout(preview, 350); }
+  // ---------- cofnij / ponów (ostatnie 25 zmian) ----------
+  const MAX_UNDO = 25;
+  let hist = [], hi = 0, lastKey = null, lastT = 0;
+  function record(key) {
+    const s = JSON.stringify(cfg);
+    if (s === hist[hi]) return;
+    const now = Date.now();
+    if (key && key === lastKey && now - lastT < 1200 && hi === hist.length - 1 && hi > 0) hist[hi] = s; // pisanie w jednym polu = 1 krok
+    else {
+      hist.splice(hi + 1); hist.push(s); hi++;
+      if (hist.length > MAX_UNDO + 1) { hist.shift(); hi--; }
+    }
+    lastKey = key || null; lastT = now;
+    undoButtons();
+  }
+  function undoButtons() { $('#btnUndo').disabled = hi <= 0; $('#btnRedo').disabled = hi >= hist.length - 1; }
+  function goto(n) {
+    if (n < 0 || n >= hist.length) return;
+    hi = n; lastKey = null;
+    cfg = JSON.parse(hist[hi]); fillForm(); undoButtons();
+    clearTimeout(timer); timer = setTimeout(preview, 100);
+  }
+  function changed(key) { readFormSafe(); record(key); clearTimeout(timer); timer = setTimeout(preview, 350); }
   function readFormSafe() { if (!$('#tab-ustawienia').hidden) readForm(); }
 
   // ---------- PDF ----------
@@ -146,7 +168,7 @@
     $$('.panel').forEach(p => p.hidden = p.id !== 'tab-' + b.dataset.tab);
     window.scrollTo(0, 0);
   });
-  $$('#tab-ustawienia .grid input, .f_dzien').forEach(i => i.addEventListener('input', () => changed()));
+  $$('#tab-ustawienia .grid input, .f_dzien').forEach(i => i.addEventListener('input', () => changed(i.id || undefined)));
   $$('.dl').forEach(b => b.onclick = () => download(b.dataset.layout));
   $('#btnAuto').onclick = autoHolidays;
   function askPassword() {
@@ -177,5 +199,8 @@
     if (!r.ok) return status(j.error, true);
     cfg = j; normalize(); fillForm(); changed(); status('Wczytano ustawienia z serwera.');
   };
+  hist = [JSON.stringify(cfg)]; undoButtons();
+  $('#btnUndo').onclick = () => goto(hi - 1);
+  $('#btnRedo').onclick = () => goto(hi + 1);
   preview();
 })();

@@ -47,3 +47,4 @@ input:focus{outline:2px solid var(--acc);outline-offset:-1px}
 .modal .box{background:var(--card);border-radius:12px;padding:20px;width:100%;max-width:340px;display:flex;flex-direction:column;gap:14px;box-shadow:0 10px 40px rgba(0,0,0,.3)}
 .modal h3{margin:0}.modal input[type=password]{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:8px;padding:8px 10px;font:inherit;width:100%}
 .modal .btns{justify-content:flex-end}
+.btn:disabled{opacity:.4;cursor:default}.btn:disabled:hover{border-color:var(--line)}

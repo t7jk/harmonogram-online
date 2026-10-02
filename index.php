@@ -33,6 +33,8 @@
   <section class="panel" id="tab-ustawienia" hidden>
     <div class="bar"><h2>Ustawienia</h2>
       <div class="btns">
+        <button class="btn" id="btnUndo" title="Cofnij ostatnią zmianę (do 25 kroków)">↶ Cofnij</button>
+        <button class="btn" id="btnRedo" title="Ponów cofniętą zmianę">↷ Ponów</button>
         <button class="btn" id="btnLoad">Wczytaj ustawienia</button>
         <button class="btn primary" id="btnSave">Zapisz ustawienia</button>
       </div></div>
