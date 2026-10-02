@@ -35,7 +35,7 @@ function readConfig(array $in): array {
         'n' => $n,
         'koniec' => !empty($in['koniec']) ? d2n($in['koniec']) : null,
         'plik' => preg_replace('/[^A-Za-z0-9_.-]/', '_', str($in['plik'] ?? 'harmonogram', 80)) ?: 'harmonogram',
-        'weekend' => true,
+        'weekend' => false,
         'dni' => $dni,
         'swieta' => [], 'ferie' => [], 'wyjatki' => [], 'dodatki' => [], 'ind' => [],
     ];
@@ -219,7 +219,7 @@ function arrayToCfg(array $c): string {
         "[ustawienia]", "rok_szkolny = " . str($c['rok'] ?? ''), "start = " . str($c['start'] ?? ''),
         "liczba_spotkan = " . (int)($c['n'] ?? 28), "koniec_roku = " . str($c['koniec'] ?? ''), "output = PDF",
         "plik_wyjsciowy = " . str($c['plik'] ?? 'harmonogram'), "dni = " . implode(',', array_map('intval', $c['dni'] ?? [])),
-        "weekend_przed_przerwa = " . 'tak', ""];
+        "weekend_przed_przerwa = " . 'nie', ""];
     foreach (['stale' => 'swieta_stale', 'ruchome' => 'swieta_ruchome', 'ferie' => 'ferie'] as $k => $name) {
         $o[] = "[$name]";
         foreach ($c[$k] ?? [] as $r) {
